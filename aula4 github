@@ -1,0 +1,93 @@
+# ==========================================
+# SISTEMA SIMPLES DE CADASTRO E LOGIN
+# ==========================================
+
+# Vamos usar um dicionário para armazenar os usuários
+# Estrutura: {usuario: senha}
+usuarios = {}
+
+# ------------------------------------------
+# FUNÇÃO PARA CADASTRAR NOVO USUÁRIO
+# ------------------------------------------
+def cadastrar_usuario():
+    print("\n=== CADASTRO DE USUÁRIO ===")
+    
+    # Solicita o nome de usuário
+    usuario = input("Digite um nome de usuário: ").strip()
+    
+    # Verifica se o usuário já existe
+    if usuario in usuarios:
+        print("Erro: Usuário já existe!")
+        return
+    
+    # Solicita a senha
+    senha = input("Digite uma senha: ").strip()
+    
+    # Verificação simples de segurança
+    if len(senha) < 4:
+        print("Erro: A senha deve ter pelo menos 4 caracteres.")
+        return
+    
+    # Salva o usuário no dicionário
+    usuarios[usuario] = senha
+    
+    print("Usuário cadastrado com sucesso!")
+
+# ------------------------------------------
+# FUNÇÃO PARA REALIZAR LOGIN
+# ------------------------------------------
+def fazer_login():
+    print("\n=== LOGIN ===")
+    
+    # Solicita dados do usuário
+    usuario = input("Digite seu usuário: ").strip()
+    senha = input("Digite sua senha: ").strip()
+    
+    # Verifica se o usuário existe
+    if usuario not in usuarios:
+        print("Erro: Usuário não encontrado.")
+        return
+    
+    # Verifica se a senha está correta
+    if usuarios[usuario] == senha:
+        print("Login realizado com sucesso!")
+    else:
+        print("Erro: Senha incorreta.")
+
+# ------------------------------------------
+# FUNÇÃO PRINCIPAL (MENU DO SISTEMA)
+# ------------------------------------------
+def menu():
+    while True:
+        print("\n=== MENU ===")
+        print("1 - Cadastrar usuário")
+        print("2 - Fazer login")
+        print("3 - Listar usuários (debug)")
+        print("0 - Sair")
+        
+        opcao = input("Escolha uma opção: ").strip()
+        
+        # Controle de fluxo baseado na escolha
+        if opcao == "1":
+            cadastrar_usuario()
+        
+        elif opcao == "2":
+            fazer_login()
+        
+        elif opcao == "3":
+            # Apenas para testes (não recomendado em sistemas reais)
+            print("Usuários cadastrados:", usuarios)
+        
+        elif opcao == "0":
+            print("Encerrando o sistema...")
+            break
+        
+        else:
+            print("Opção inválida! Tente novamente.")
+
+# ------------------------------------------
+# EXECUÇÃO DO PROGRAMA
+# ------------------------------------------
+# Garante que o código só roda se este arquivo for executado diretamente
+if __name__ == "__main__":
+    menu()
